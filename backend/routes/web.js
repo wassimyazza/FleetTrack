@@ -11,5 +11,6 @@ router.post('/register',AuthController.register);
 
 // truck routers
 router.get('/trucks', auth, TruckController.getAllTrucks);
+router.get('/trucks/:id', auth, TruckController.getTruckById);
 
 export default router;
