@@ -22,6 +22,22 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
+
+    async createTruck(req, res) {
+        try {
+            const { plateNumber, brand, model, year } = req.body;
+            
+            const existingTruck = await Truck.findOne({ plateNumber });
+            if (existingTruck) {
+                return res.status(400).json({ message: "Plate number already exists" });
+            }
+            
+            const truck = await Truck.create(req.body);
+            return res.status(201).json(truck);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TruckController();
