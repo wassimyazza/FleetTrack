@@ -56,6 +56,20 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
+
+    async deleteTruck(req, res) {
+        try {
+            const truck = await Truck.findByIdAndDelete(req.params.id);
+            
+            if (!truck) {
+                return res.status(404).json({ message: "Truck not found" });
+            }
+            
+            return res.status(200).json({ message: "Truck deleted successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TruckController();
