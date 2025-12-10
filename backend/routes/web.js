@@ -14,5 +14,6 @@ router.post('/register',AuthController.register);
 router.get('/trucks', auth, TruckController.getAllTrucks);
 router.get('/trucks/:id', auth, TruckController.getTruckById);
 router.post('/trucks', auth, checkRole(['admin']), TruckController.createTruck);
+router.put('/trucks/:id', auth, checkRole(['admin']), TruckController.updateTruck);
 
 export default router;

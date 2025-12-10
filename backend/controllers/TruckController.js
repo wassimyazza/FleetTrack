@@ -38,6 +38,24 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
+
+    async updateTruck(req, res) {
+        try {
+            const truck = await Truck.findByIdAndUpdate(
+                req.params.id,
+                req.body,
+                { new: true }
+            );
+            
+            if (!truck) {
+                return res.status(404).json({ message: "Truck not found" });
+            }
+            
+            return res.status(200).json(truck);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TruckController();
