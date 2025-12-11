@@ -53,6 +53,19 @@ class TrailerController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async deleteTrailer(req, res) {
+        try {
+            const trailer = await Trailer.findByIdAndDelete(req.params.id);
+            
+            if (!trailer) {
+                return res.status(404).json({ message: "Trailer not found" });
+            }
+            
+            return res.status(200).json({ message: "Trailer deleted successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TrailerController();
