@@ -43,6 +43,19 @@ class TireController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async deleteTire(req, res) {
+        try {
+            const tire = await Tire.findByIdAndDelete(req.params.id);
+            
+            if (!tire) {
+                return res.status(404).json({ message: "Tire not found" });
+            }
+            
+            return res.status(200).json({ message: "Tire deleted successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TireController();
