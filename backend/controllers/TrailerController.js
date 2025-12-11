@@ -36,6 +36,23 @@ class TrailerController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async updateTrailer(req, res) {
+        try {
+            const trailer = await Trailer.findByIdAndUpdate(
+                req.params.id,
+                req.body,
+                { new: true }
+            );
+            
+            if (!trailer) {
+                return res.status(404).json({ message: "Trailer not found" });
+            }
+            
+            return res.status(200).json(trailer);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TrailerController();

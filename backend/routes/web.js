@@ -22,5 +22,6 @@ router.delete('/trucks/:id', auth, checkRole(['admin']), TruckController.deleteT
 router.get('/trailers', auth, TrailerController.getAllTrailers);
 router.get('/trailers/:id', auth, TrailerController.getTrailerById);
 router.post('/trailers', auth, checkRole(['admin']), TrailerController.createTrailer);
+router.put('/trailers/:id', auth, checkRole(['admin']), TrailerController.updateTrailer);
 
 export default router;
