@@ -29,5 +29,6 @@ router.delete('/trailers/:id', auth, checkRole(['admin']), TrailerController.del
 // tire routers
 router.get('/tires', auth, checkRole(['admin']), TireController.getAllTires);
 router.get('/tires/truck/:truckId', auth, TireController.getTiresByTruck);
+router.post('/tires', auth, checkRole(['admin']), TireController.createTire);
 
 export default router;
