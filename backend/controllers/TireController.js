@@ -26,6 +26,23 @@ class TireController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async updateTire(req, res) {
+        try {
+            const tire = await Tire.findByIdAndUpdate(
+                req.params.id,
+                req.body,
+                { new: true }
+            );
+            
+            if (!tire) {
+                return res.status(404).json({ message: "Tire not found" });
+            }
+            
+            return res.status(200).json(tire);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TireController();
