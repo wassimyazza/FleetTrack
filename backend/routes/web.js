@@ -20,5 +20,6 @@ router.delete('/trucks/:id', auth, checkRole(['admin']), TruckController.deleteT
 
 // trailer routers
 router.get('/trailers', auth, TrailerController.getAllTrailers);
+router.get('/trailers/:id', auth, TrailerController.getTrailerById);
 
 export default router;
