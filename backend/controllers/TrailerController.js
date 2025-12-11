@@ -21,6 +21,21 @@ class TrailerController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async createTrailer(req, res) {
+        try {
+            const { plateNumber } = req.body;
+            
+            const existingTrailer = await Trailer.findOne({ plateNumber });
+            if (existingTrailer) {
+                return res.status(400).json({ message: "Plate number already exists" });
+            }
+            
+            const trailer = await Trailer.create(req.body);
+            return res.status(201).json(trailer);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TrailerController();
