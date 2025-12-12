@@ -40,5 +40,6 @@ router.get('/trips/:id', auth, TripController.getTripById);
 router.post('/trips', auth, checkRole(['admin']), TripController.createTrip);
 router.put('/trips/:id', auth, checkRole(['admin']), TripController.updateTrip);
 router.delete('/trips/:id', auth, checkRole(['admin']), TripController.deleteTrip);
+router.patch('/trips/:id/status', auth, TripController.updateTripStatus);
 
 export default router;
