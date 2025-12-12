@@ -47,6 +47,19 @@ class MaintenanceController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async deleteMaintenance(req, res) {
+        try {
+            const maintenance = await Maintenance.findByIdAndDelete(req.params.id);
+            
+            if (!maintenance) {
+                return res.status(404).json({ message: "Maintenance not found" });
+            }
+            
+            return res.status(200).json({ message: "Maintenance deleted successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new MaintenanceController();
