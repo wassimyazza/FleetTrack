@@ -6,6 +6,7 @@ import checkRole from "../middlewares/role.js";
 import TrailerController from "../controllers/TrailerController.js";
 import TireController from "../controllers/TireController.js";
 import TripController from "../controllers/TripController.js";
+import MaintenanceController from "../controllers/MaintenanceController.js";
 
 const router = Router();
 
@@ -43,5 +44,9 @@ router.delete('/trips/:id', auth, checkRole(['admin']), TripController.deleteTri
 router.patch('/trips/:id/status', auth, TripController.updateTripStatus);
 router.get('/my-trips', auth, TripController.getMyTrips);
 router.get('/trips/:id/pdf', auth, TripController.downloadTripPDF);
+
+// maintenance routers
+router.get('/maintenances', auth, checkRole(['admin']), MaintenanceController.getAllMaintenances);
+
 
 export default router;
