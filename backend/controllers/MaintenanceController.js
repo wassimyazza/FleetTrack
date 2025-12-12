@@ -60,6 +60,31 @@ class MaintenanceController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async getUpcomingMaintenances(req, res) {
+        try {
+            const trucks = await Truck.find();
+            const upcoming = [];
+            
+            for (const truck of trucks) {
+                const lastMaintenance = await Maintenance.findOne({ truck: truck._id })
+                    .sort({ date: -1 });
+                
+                if (lastMaintenance && lastMaintenance.nextMaintenanceAt) {
+                    if (truck.mileage >= lastMaintenance.nextMaintenanceAt - 1000) {
+                        upcoming.push({
+                            truck: truck,
+                            lastMaintenance: lastMaintenance,
+                            dueAt: lastMaintenance.nextMaintenanceAt
+                        });
+                    }
+                }
+            }
+            
+            return res.status(200).json(upcoming);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new MaintenanceController();

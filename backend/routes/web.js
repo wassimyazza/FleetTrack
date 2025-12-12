@@ -51,9 +51,7 @@ router.get('/maintenances/truck/:truckId', auth, MaintenanceController.getMainte
 router.post('/maintenances', auth, checkRole(['admin']), MaintenanceController.createMaintenance);
 router.put('/maintenances/:id', auth, checkRole(['admin']), MaintenanceController.updateMaintenance);
 router.delete('/maintenances/:id', auth, checkRole(['admin']), MaintenanceController.deleteMaintenance);
-
-
-
+router.get('/maintenances/upcoming', auth, checkRole(['admin']), MaintenanceController.getUpcomingMaintenances);
 
 
 export default router;
