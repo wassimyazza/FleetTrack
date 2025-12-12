@@ -1,4 +1,6 @@
 import Trip from "../models/Trip.js";
+import Truck from "../models/Truck.js";
+import Trailer from "../models/Trailer.js";
 
 class TripController {
     
@@ -26,6 +28,21 @@ class TripController {
             }
             
             return res.status(200).json(trip);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
+
+    async createTrip(req, res) {
+        try {
+            const trip = await Trip.create(req.body);
+            
+            await Truck.findByIdAndUpdate(req.body.truck, { status: 'in-use' });
+            if (req.body.trailer) {
+                await Trailer.findByIdAndUpdate(req.body.trailer, { status: 'in-use' });
+            }
+            
+            return res.status(201).json(trip);
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }

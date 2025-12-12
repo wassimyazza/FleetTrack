@@ -37,5 +37,6 @@ router.delete('/tires/:id', auth, checkRole(['admin']), TireController.deleteTir
 // trip routers
 router.get('/trips', auth, checkRole(['admin']), TripController.getAllTrips);
 router.get('/trips/:id', auth, TripController.getTripById);
+router.post('/trips', auth, checkRole(['admin']), TripController.createTrip);
 
 export default router;
