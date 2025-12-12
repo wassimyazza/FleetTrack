@@ -47,6 +47,23 @@ class TripController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async updateTrip(req, res) {
+        try {
+            const trip = await Trip.findByIdAndUpdate(
+                req.params.id,
+                req.body,
+                { new: true }
+            );
+            
+            if (!trip) {
+                return res.status(404).json({ message: "Trip not found" });
+            }
+            
+            return res.status(200).json(trip);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TripController();
