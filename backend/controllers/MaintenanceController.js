@@ -11,7 +11,14 @@ class MaintenanceController {
             return res.status(500).json({ message: error.message });
         }
     }
-    
+    async getMaintenancesByTruck(req, res) {
+        try {
+            const maintenances = await Maintenance.find({ truck: req.params.truckId });
+            return res.status(200).json(maintenances);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new MaintenanceController();

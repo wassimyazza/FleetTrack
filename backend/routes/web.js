@@ -47,6 +47,8 @@ router.get('/trips/:id/pdf', auth, TripController.downloadTripPDF);
 
 // maintenance routers
 router.get('/maintenances', auth, checkRole(['admin']), MaintenanceController.getAllMaintenances);
+router.get('/maintenances/truck/:truckId', auth, MaintenanceController.getMaintenancesByTruck);
+
 
 
 export default router;
