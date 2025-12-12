@@ -64,6 +64,19 @@ class TripController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async deleteTrip(req, res) {
+        try {
+            const trip = await Trip.findByIdAndDelete(req.params.id);
+            
+            if (!trip) {
+                return res.status(404).json({ message: "Trip not found" });
+            }
+            
+            return res.status(200).json({ message: "Trip deleted successfully" });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TripController();
