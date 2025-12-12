@@ -30,6 +30,23 @@ class MaintenanceController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async updateMaintenance(req, res) {
+        try {
+            const maintenance = await Maintenance.findByIdAndUpdate(
+                req.params.id,
+                req.body,
+                { new: true }
+            );
+            
+            if (!maintenance) {
+                return res.status(404).json({ message: "Maintenance not found" });
+            }
+            
+            return res.status(200).json(maintenance);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new MaintenanceController();

@@ -49,6 +49,8 @@ router.get('/trips/:id/pdf', auth, TripController.downloadTripPDF);
 router.get('/maintenances', auth, checkRole(['admin']), MaintenanceController.getAllMaintenances);
 router.get('/maintenances/truck/:truckId', auth, MaintenanceController.getMaintenancesByTruck);
 router.post('/maintenances', auth, checkRole(['admin']), MaintenanceController.createMaintenance);
+router.put('/maintenances/:id', auth, checkRole(['admin']), MaintenanceController.updateMaintenance);
+
 
 
 
