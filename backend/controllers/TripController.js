@@ -114,6 +114,17 @@ class TripController {
             return res.status(500).json({ message: error.message });
         }
     }
+
+    async getMyTrips(req, res) {
+        try {
+            const trips = await Trip.find({ driver: req.user.id })
+                .populate('truck')
+                .populate('trailer');
+            return res.status(200).json(trips);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TripController();
