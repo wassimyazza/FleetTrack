@@ -42,5 +42,6 @@ router.put('/trips/:id', auth, checkRole(['admin']), TripController.updateTrip);
 router.delete('/trips/:id', auth, checkRole(['admin']), TripController.deleteTrip);
 router.patch('/trips/:id/status', auth, TripController.updateTripStatus);
 router.get('/my-trips', auth, TripController.getMyTrips);
+router.get('/trips/:id/pdf', auth, TripController.downloadTripPDF);
 
 export default router;

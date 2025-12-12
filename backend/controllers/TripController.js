@@ -125,6 +125,26 @@ class TripController {
             return res.status(500).json({ message: error.message });
         }
     }
+    async downloadTripPDF(req, res) {
+        try {
+            const trip = await Trip.findById(req.params.id)
+                .populate('driver', 'firstname lastname')
+                .populate('truck')
+                .populate('trailer');
+            
+            if (!trip) {
+                return res.status(404).json({ message: "Trip not found" });
+            }
+            
+            const pdfBuffer = await generateTripPDF(trip);
+            
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-Disposition', `attachment; filename=trip-${trip._id}.pdf`);
+            res.send(pdfBuffer);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new TripController();
