@@ -5,6 +5,7 @@ import auth from "../middlewares/auth.js";
 import checkRole from "../middlewares/role.js";
 import TrailerController from "../controllers/TrailerController.js";
 import TireController from "../controllers/TireController.js";
+import TripController from "../controllers/TripController.js";
 
 const router = Router();
 
@@ -32,5 +33,8 @@ router.get('/tires/truck/:truckId', auth, TireController.getTiresByTruck);
 router.post('/tires', auth, checkRole(['admin']), TireController.createTire);
 router.put('/tires/:id', auth, checkRole(['admin']), TireController.updateTire);
 router.delete('/tires/:id', auth, checkRole(['admin']), TireController.deleteTire);
+
+// trip routers
+router.get('/trips', auth, checkRole(['admin']), TripController.getAllTrips);
 
 export default router;
