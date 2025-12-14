@@ -10,7 +10,7 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
-
+    
     async getTruckById(req, res) {
         try {
             const truck = await Truck.findById(req.params.id);
@@ -22,7 +22,7 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
-
+    
     async createTruck(req, res) {
         try {
             const { plateNumber, brand, model, year } = req.body;
@@ -38,7 +38,7 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
-
+    
     async updateTruck(req, res) {
         try {
             const truck = await Truck.findByIdAndUpdate(
@@ -56,7 +56,7 @@ class TruckController {
             return res.status(500).json({ message: error.message });
         }
     }
-
+    
     async deleteTruck(req, res) {
         try {
             const truck = await Truck.findByIdAndDelete(req.params.id);

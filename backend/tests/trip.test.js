@@ -159,6 +159,7 @@ describe('Trip Tests', () => {
                 .set('Authorization', `Bearer ${chauffeurToken}`)
                 .send({
                     status: 'completed',
+                    startMileage: 10000,
                     endMileage: 10250,
                     fuelUsed: 50
                 });

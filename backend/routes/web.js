@@ -7,6 +7,7 @@ import TrailerController from "../controllers/TrailerController.js";
 import TireController from "../controllers/TireController.js";
 import TripController from "../controllers/TripController.js";
 import MaintenanceController from "../controllers/MaintenanceController.js";
+import ReportController from "../controllers/ReportController.js";
 
 const router = Router();
 
@@ -52,6 +53,13 @@ router.post('/maintenances', auth, checkRole(['admin']), MaintenanceController.c
 router.put('/maintenances/:id', auth, checkRole(['admin']), MaintenanceController.updateMaintenance);
 router.delete('/maintenances/:id', auth, checkRole(['admin']), MaintenanceController.deleteMaintenance);
 router.get('/maintenances/upcoming', auth, checkRole(['admin']), MaintenanceController.getUpcomingMaintenances);
+
+
+router.get('/reports/fuel', auth, checkRole(['admin']), ReportController.getFuelConsumptionReport);
+router.get('/reports/mileage', auth, checkRole(['admin']), ReportController.getMileageReport);
+router.get('/reports/maintenance', auth, checkRole(['admin']), ReportController.getMaintenanceReport);
+router.get('/reports/drivers', auth, checkRole(['admin']), ReportController.getDriverPerformance);
+router.get('/reports/dashboard', auth, checkRole(['admin']), ReportController.getDashboard);
 
 
 export default router;
