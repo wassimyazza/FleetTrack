@@ -62,23 +62,15 @@ class MaintenanceController {
     }
     async getUpcomingMaintenances(req, res) {
         try {
-            const trucks = await Truck.find();
-            const upcoming = [];
+            const maintenances = await Maintenance.find({
+                nextMaintenanceAt: { $exists: true, $ne: null }
+            })
+            .populate('truck', 'plateNumber mileage')
+            .sort({ nextMaintenanceAt: 1 });
             
-            for (const truck of trucks) {
-                const lastMaintenance = await Maintenance.findOne({ truck: truck._id })
-                    .sort({ date: -1 });
-                
-                if (lastMaintenance && lastMaintenance.nextMaintenanceAt) {
-                    if (truck.mileage >= lastMaintenance.nextMaintenanceAt - 1000) {
-                        upcoming.push({
-                            truck: truck,
-                            lastMaintenance: lastMaintenance,
-                            dueAt: lastMaintenance.nextMaintenanceAt
-                        });
-                    }
-                }
-            }
+            const upcoming = maintenances.filter(m => {
+                return m.truck.mileage < m.nextMaintenanceAt;
+            });
             
             return res.status(200).json(upcoming);
         } catch (error) {
