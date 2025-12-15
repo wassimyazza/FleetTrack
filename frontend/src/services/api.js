@@ -19,6 +19,10 @@ export const authAPI = {
     register: (data) => api.post('/register', data),
 };
 
+export const userAPI = {
+    getDrivers: () => api.get('/users/drivers'),
+};
+
 export const truckAPI = {
     getAll: () => api.get('/trucks'),
     getById: (id) => api.get(`/trucks/${id}`),

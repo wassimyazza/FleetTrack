@@ -8,12 +8,22 @@ import TireController from "../controllers/TireController.js";
 import TripController from "../controllers/TripController.js";
 import MaintenanceController from "../controllers/MaintenanceController.js";
 import ReportController from "../controllers/ReportController.js";
+import User from "../models/User.js";
 
 const router = Router();
 
 // authentification
 router.post('/login', AuthController.login);
 router.post('/register',AuthController.register);
+
+router.get('/users/drivers', auth, checkRole(['admin']), async (req, res) => {
+    try {
+        const drivers = await User.find({ role: 'chauffeur' }).select('firstname lastname email');
+        return res.status(200).json(drivers);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
 
 // truck routers
 router.get('/trucks', auth, TruckController.getAllTrucks);
